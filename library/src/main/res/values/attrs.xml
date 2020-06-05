@@ -16,6 +16,11 @@
         <attr name="mpb_fill_color" format="color" />
         <attr name="mpb_background_color" format="color" />
         <attr name="mpb_flat" format="boolean" />
+        <attr name="mpb_show_text"  format="boolean"/>
+        <attr name="mpb_text_color" format="color" />
+        <attr name="mpb_text_size" format="dimension" />
+        <attr name="mpb_bar_width" format="dimension" />
+        <attr name="mbp_bar_text_space" format="dimension" />
     </declare-styleable>
 
 </resources>

@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/Android-MagicProgressWidget.iml" filepath="$PROJECT_DIR$/Android-MagicProgressWidget.iml" group="MagicProgressWidget" />
       <module fileurl="file://$PROJECT_DIR$/MagicProgressWidget.iml" filepath="$PROJECT_DIR$/MagicProgressWidget.iml" />
+      <module fileurl="file://$PROJECT_DIR$/demo/MagicProgressWidget-demo.iml" filepath="$PROJECT_DIR$/demo/MagicProgressWidget-demo.iml" group="MagicProgressWidget/demo" />
+      <module fileurl="file://$PROJECT_DIR$/library/MagicProgressWidget-library.iml" filepath="$PROJECT_DIR$/library/MagicProgressWidget-library.iml" group="MagicProgressWidget/library" />
       <module fileurl="file://$PROJECT_DIR$/demo/demo.iml" filepath="$PROJECT_DIR$/demo/demo.iml" />
       <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
     </modules>

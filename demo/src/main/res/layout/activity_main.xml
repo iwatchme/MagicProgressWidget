@@ -55,6 +55,9 @@
         android:id="@+id/demo_4_mpb"
         style="@style/demo_progress_bar"
         app:mpb_background_color="#1AFFFFFF"
+        app:mpb_show_text="true"
+        app:mpb_text_color="@color/white"
+        app:mpb_bar_width="20dp"
         app:mpb_fill_color="#FF86E50E" />
 
     <LinearLayout

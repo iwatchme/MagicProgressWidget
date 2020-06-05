@@ -20,9 +20,11 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.graphics.RectF;
 import android.os.Build;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 import java.lang.ref.WeakReference;
@@ -46,9 +48,19 @@ public class MagicProgressBar extends View implements ISmoothTarget {
 
     private Paint fillPaint;
     private Paint backgroundPaint;
+    private Paint textPaint;
 
     private float percent;
     private boolean isFlat;
+
+    //text
+    private boolean showText;
+    private float textSize;
+    private int textColor;
+    private int textStartPadding;
+    private int textEndPadding;
+    private int barWidth;
+    private int barTextSpace;
 
     private SmoothHandler smoothHandler;
 
@@ -86,6 +98,12 @@ public class MagicProgressBar extends View implements ISmoothTarget {
             fillColor = typedArray.getColor(R.styleable.MagicProgressBar_mpb_fill_color, 0);
             backgroundColor = typedArray.getColor(R.styleable.MagicProgressBar_mpb_background_color, 0);
             isFlat = typedArray.getBoolean(R.styleable.MagicProgressBar_mpb_flat, false);
+
+            showText = typedArray.getBoolean(R.styleable.MagicProgressBar_mpb_show_text, false);
+            textColor = typedArray.getColor(R.styleable.MagicProgressBar_mpb_text_color, 0);
+            textSize = typedArray.getDimensionPixelSize(R.styleable.MagicProgressBar_mpb_text_size, getResources().getDimensionPixelSize(R.dimen.default_text_size));
+            barWidth = typedArray.getDimensionPixelOffset(R.styleable.MagicProgressBar_mpb_bar_width, getResources().getDimensionPixelSize(R.dimen.default_bar_width));
+            barTextSpace = typedArray.getDimensionPixelOffset(R.styleable.MagicProgressBar_mbp_bar_text_space, getResources().getDimensionPixelSize(R.dimen.default_text_bar_space));
         } finally {
             if (typedArray != null) {
                 typedArray.recycle();
@@ -100,6 +118,15 @@ public class MagicProgressBar extends View implements ISmoothTarget {
         backgroundPaint.setColor(backgroundColor);
         backgroundPaint.setAntiAlias(true);
 
+        textPaint = new Paint();
+        textPaint.setColor(textColor);
+        textPaint.setTextSize(textSize);
+        textPaint.setAntiAlias(true);
+        if (showText) {
+            Rect rect = new Rect();
+            textPaint.getTextBounds("100%", 0, "100%".length(), rect);
+            textStartPadding = textEndPadding = (rect.right - rect.left)/2;
+        }
     }
 
     /**
@@ -123,6 +150,20 @@ public class MagicProgressBar extends View implements ISmoothTarget {
             this.backgroundPaint.setColor(backgroundColor);
             invalidate();
         }
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        int width = widthMeasureSpec;
+        int height = heightMeasureSpec;
+
+
+        if (showText) {
+          height = MeasureSpec.makeMeasureSpec((int) (barTextSpace + barWidth + textSize + getPaddingTop() + getPaddingBottom()), MeasureSpec.EXACTLY);
+        }
+
+        setMeasuredDimension(getDefaultSize(getSuggestedMinimumWidth(), width),
+                getDefaultSize(getSuggestedMinimumHeight(), height));
     }
 
     public int getFillColor() {
@@ -195,50 +236,39 @@ public class MagicProgressBar extends View implements ISmoothTarget {
 
         canvas.save();
 
-
-        final int height = getMeasuredHeight() - getPaddingTop() - getPaddingBottom();
-        final int width = getMeasuredWidth() - getPaddingLeft() - getPaddingRight();
+        int height = getMeasuredHeight() - getPaddingTop() - getPaddingBottom();
+        if (showText) {
+            height = barWidth;
+        }
+        final int width = getMeasuredWidth() - getPaddingLeft() - getPaddingRight() - textStartPadding - textEndPadding;
 
         float fillWidth = drawPercent * width;
         final float radius = height / 2.0f;
 
 
-        rectF.left = 0;
+        rectF.left = textEndPadding;
         rectF.top = 0;
         rectF.right = width;
         rectF.bottom = height;
 
-//        regionPath.reset();
-//        regionPath.addRoundRect(rectF, radius, radius, Path.Direction.CW);
-//        regionPath.close();
-        // draw background
+
         if (backgroundColor != 0) {
             canvas.drawRoundRect(rectF, radius, radius, backgroundPaint);
-//            canvas.drawPath(regionPath, backgroundPaint);
         }
 
-
-        // draw fill
         try {
-
-
             if (fillColor != 0 && fillWidth > 0) {
-                //有锯齿, 无奈放弃
-//            fillPath.reset();
-//            rectF.right = fillWidth;
-//            fillPath.addRect(rectF, Path.Direction.CW);
-//            fillPath.close();
-//            canvas.clipPath(regionPath);
-//            canvas.drawPath(fillPath, fillPaint);
                 if (fillWidth == width) {
                     rectF.right = fillWidth;
                     canvas.drawRoundRect(rectF, radius, radius, fillPaint);
+                    if (showText) {
+                        canvas.drawText("100%", fillWidth - textStartPadding, textSize + barTextSpace + barWidth,  textPaint);
+                    }
                     return;
                 }
 
                 if (isFlat) {
 
-                    // draw left semicircle
                     canvas.save();
                     rectF.right = fillWidth > radius ? radius : fillWidth;
                     canvas.clipRect(rectF);
@@ -247,6 +277,9 @@ public class MagicProgressBar extends View implements ISmoothTarget {
                     canvas.restore();
 
                     if (fillWidth <= radius) {
+                        if (showText) {
+                            canvas.drawText("100%", fillWidth - textStartPadding, textSize + barTextSpace + barWidth,  textPaint);
+                        }
                         return;
                     }
 
@@ -281,6 +314,11 @@ public class MagicProgressBar extends View implements ISmoothTarget {
                         canvas.drawRoundRect(rectF, radius, radius, fillPaint);
                     }
                 }
+
+            }
+
+            if (showText) {
+                canvas.drawText("100%", fillWidth - textStartPadding, textSize + barTextSpace + barWidth,  textPaint);
 
             }
         } finally {
