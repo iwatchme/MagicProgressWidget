@@ -40,16 +40,17 @@ public class MainActivity extends AppCompatActivity {
 
     private void anim() {
         final int ceil = 26;
-        final int progress = random.nextInt(ceil);
+        //final int progress = random.nextInt(ceil);
+        final int progress = 0;
 
         AnimatorSet set = new AnimatorSet();
         set.playTogether(
                 ObjectAnimator.ofFloat(demoMpc, "percent", 0, progress / 100f),
                 ObjectAnimator.ofInt(demoTv, "progress", 0, progress),
-                ObjectAnimator.ofFloat(demo1Mpb, "percent", 0, random.nextInt(ceil) / 100f),
-                ObjectAnimator.ofFloat(demo2Mpb, "percent", 0, random.nextInt(ceil) / 100f),
-                ObjectAnimator.ofFloat(demo3Mpb, "percent", 0, random.nextInt(ceil) / 100f),
-                ObjectAnimator.ofFloat(demo4Mpb, "percent", 0, random.nextInt(ceil) / 100f)
+                ObjectAnimator.ofFloat(demo1Mpb, "percent", 0, progress / 100f),
+                ObjectAnimator.ofFloat(demo2Mpb, "percent", 0, progress/ 100f),
+                ObjectAnimator.ofFloat(demo3Mpb, "percent", 0, progress / 100f),
+                ObjectAnimator.ofFloat(demo4Mpb, "percent", 0, progress / 100f)
         );
         set.setDuration(600);
         set.addListener(new Animator.AnimatorListener() {
@@ -94,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
         demoMpc.setSmoothPercent(mpcPercent);
         demoTv.setSmoothPercent(mpcPercent);
         // Just for demo smoothly process to the target percent in 3000ms duration.
-        demo1Mpb.setSmoothPercent(getIncreasedPercent(demo1Mpb), 3000);
+        demo1Mpb.setSmoothPercent(getIncreasedPercent(demo1Mpb));
         demo2Mpb.setSmoothPercent(getIncreasedPercent(demo2Mpb));
         demo3Mpb.setSmoothPercent(getIncreasedPercent(demo3Mpb));
         demo4Mpb.setSmoothPercent(getIncreasedPercent(demo4Mpb));

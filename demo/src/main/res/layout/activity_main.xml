@@ -58,6 +58,7 @@
         app:mpb_show_text="true"
         app:mpb_text_color="@color/white"
         app:mpb_bar_width="20dp"
+        app:mpb_flat="true"
         app:mpb_fill_color="#FF86E50E" />
 
     <LinearLayout

@@ -246,9 +246,9 @@ public class MagicProgressBar extends View implements ISmoothTarget {
         final float radius = height / 2.0f;
 
 
-        rectF.left = textEndPadding;
+        rectF.left = getPaddingLeft() + textStartPadding;
         rectF.top = 0;
-        rectF.right = width;
+        rectF.right = width + getPaddingLeft() + textStartPadding;
         rectF.bottom = height;
 
 
@@ -259,66 +259,67 @@ public class MagicProgressBar extends View implements ISmoothTarget {
         try {
             if (fillColor != 0 && fillWidth > 0) {
                 if (fillWidth == width) {
-                    rectF.right = fillWidth;
+                    rectF.right = fillWidth + getPaddingLeft() + textStartPadding;
                     canvas.drawRoundRect(rectF, radius, radius, fillPaint);
                     if (showText) {
-                        canvas.drawText("100%", fillWidth - textStartPadding, textSize + barTextSpace + barWidth,  textPaint);
+                        canvas.drawText((int)(drawPercent * 100)+"%", fillWidth + getPaddingLeft(), textSize + barTextSpace + barWidth,  textPaint);
                     }
                     return;
                 }
 
                 if (isFlat) {
-
                     canvas.save();
-                    rectF.right = fillWidth > radius ? radius : fillWidth;
+                    rectF.right = Math.min(fillWidth, radius) + getPaddingLeft() + textStartPadding;
                     canvas.clipRect(rectF);
-                    rectF.right = radius * 2;
+
+                    rectF.right = radius * 2  + getPaddingLeft() + textStartPadding;
                     canvas.drawRoundRect(rectF, radius, radius, fillPaint);
                     canvas.restore();
 
                     if (fillWidth <= radius) {
                         if (showText) {
-                            canvas.drawText("100%", fillWidth - textStartPadding, textSize + barTextSpace + barWidth,  textPaint);
+                            canvas.drawText((int)(drawPercent * 100)+"%", fillWidth + getPaddingLeft(), textSize + barTextSpace + barWidth,  textPaint);
                         }
                         return;
                     }
 
                     float leftAreaWidth = width - radius;
                     // draw center
-                    float centerX = fillWidth > leftAreaWidth ? leftAreaWidth : fillWidth;
-                    rectF.left = radius;
+                    float centerX = Math.min(fillWidth, leftAreaWidth) + getPaddingLeft() + textStartPadding;
+                    rectF.left = radius + getPaddingLeft() + textStartPadding;
                     rectF.right = centerX;
                     canvas.drawRect(rectF, fillPaint);
-                    if (fillWidth <= leftAreaWidth) {
+                    if (fillWidth <= leftAreaWidth - radius) {
+                        if (showText) {
+                            canvas.drawText((int)(drawPercent * 100)+"%", fillWidth + getPaddingLeft(), textSize + barTextSpace + barWidth,  textPaint);
+                        }
                         return;
                     }
 
                     // draw right semicircle
-                    rectF.left = leftAreaWidth - radius;
+                    rectF.left = leftAreaWidth - radius + getPaddingLeft() + textStartPadding;
 
-                    rectF.right = fillWidth;
+                    rectF.right = fillWidth+ getPaddingLeft() + textStartPadding;
                     canvas.clipRect(rectF);
 
-                    rectF.right = width;
+                    rectF.right = width + getPaddingLeft() + textStartPadding;
                     canvas.drawArc(rectF, -90, 180, true, fillPaint);
+                    if (showText) {
+                        canvas.drawText((int)(drawPercent * 100)+"%", fillWidth + getPaddingLeft(), textSize + barTextSpace + barWidth,  textPaint);
+                    }
 
                 } else {
 
                     if (fillWidth <= radius * 2) {
-                        rectF.right = fillWidth;
+                        rectF.right = fillWidth + getPaddingLeft() + textStartPadding;
                         canvas.clipRect(rectF);
                         rectF.right = radius * 2;
                         canvas.drawRoundRect(rectF, radius, radius, fillPaint);
                     } else {
-                        rectF.right = fillWidth;
+                        rectF.right = fillWidth + getPaddingLeft() + textStartPadding;
                         canvas.drawRoundRect(rectF, radius, radius, fillPaint);
                     }
                 }
-
-            }
-
-            if (showText) {
-                canvas.drawText("100%", fillWidth - textStartPadding, textSize + barTextSpace + barWidth,  textPaint);
 
             }
         } finally {
