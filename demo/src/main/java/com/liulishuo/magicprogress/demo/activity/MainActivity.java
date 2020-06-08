@@ -45,11 +45,11 @@ public class MainActivity extends AppCompatActivity {
 
         AnimatorSet set = new AnimatorSet();
         set.playTogether(
-                ObjectAnimator.ofFloat(demoMpc, "percent", 0, progress / 100f),
-                ObjectAnimator.ofInt(demoTv, "progress", 0, progress),
-                ObjectAnimator.ofFloat(demo1Mpb, "percent", 0, progress / 100f),
-                ObjectAnimator.ofFloat(demo2Mpb, "percent", 0, progress/ 100f),
-                ObjectAnimator.ofFloat(demo3Mpb, "percent", 0, progress / 100f),
+//                ObjectAnimator.ofFloat(demoMpc, "percent", 0, progress / 100f),
+//                ObjectAnimator.ofInt(demoTv, "progress", 0, progress),
+//                ObjectAnimator.ofFloat(demo1Mpb, "percent", 0, progress / 100f),
+//                ObjectAnimator.ofFloat(demo2Mpb, "percent", 0, progress/ 100f),
+//                ObjectAnimator.ofFloat(demo3Mpb, "percent", 0, progress / 100f),
                 ObjectAnimator.ofFloat(demo4Mpb, "percent", 0, progress / 100f)
         );
         set.setDuration(600);
@@ -92,13 +92,13 @@ public class MainActivity extends AppCompatActivity {
         }
 
         float mpcPercent = getIncreasedPercent(demoMpc);
-        demoMpc.setSmoothPercent(mpcPercent);
-        demoTv.setSmoothPercent(mpcPercent);
+//        demoMpc.setSmoothPercent(mpcPercent);
+//        demoTv.setSmoothPercent(mpcPercent);
         // Just for demo smoothly process to the target percent in 3000ms duration.
-        demo1Mpb.setSmoothPercent(getIncreasedPercent(demo1Mpb));
-        demo2Mpb.setSmoothPercent(getIncreasedPercent(demo2Mpb));
-        demo3Mpb.setSmoothPercent(getIncreasedPercent(demo3Mpb));
-        demo4Mpb.setSmoothPercent(getIncreasedPercent(demo4Mpb));
+//        demo1Mpb.setSmoothPercent(getIncreasedPercent(demo1Mpb), 2000);
+//        demo2Mpb.setSmoothPercent(getIncreasedPercent(demo2Mpb));
+//        demo3Mpb.setSmoothPercent(getIncreasedPercent(demo3Mpb));
+        demo4Mpb.setSmoothPercent(getIncreasedPercent(demo4Mpb), 4000);
     }
 
     private float getIncreasedPercent(ISmoothTarget target) {
@@ -140,9 +140,9 @@ public class MainActivity extends AppCompatActivity {
     private void assignViews() {
         demoMpc = (MagicProgressCircle) findViewById(R.id.demo_mpc);
         demoTv = (AnimTextView) findViewById(R.id.demo_tv);
-        demo1Mpb = (MagicProgressBar) findViewById(R.id.demo_1_mpb);
-        demo2Mpb = (MagicProgressBar) findViewById(R.id.demo_2_mpb);
-        demo3Mpb = (MagicProgressBar) findViewById(R.id.demo_3_mpb);
+//        demo1Mpb = (MagicProgressBar) findViewById(R.id.demo_1_mpb);
+//        demo2Mpb = (MagicProgressBar) findViewById(R.id.demo_2_mpb);
+//        demo3Mpb = (MagicProgressBar) findViewById(R.id.demo_3_mpb);
         demo4Mpb = (MagicProgressBar) findViewById(R.id.demo_4_mpb);
     }
 

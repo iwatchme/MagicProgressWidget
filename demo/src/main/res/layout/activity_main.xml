@@ -29,27 +29,27 @@
     </RelativeLayout>
 
 
-    <com.liulishuo.magicprogresswidget.MagicProgressBar
-        android:id="@+id/demo_1_mpb"
-        style="@style/demo_progress_bar"
-        android:layout_height="32dp"
-        android:layout_marginTop="30dp"
-        app:mpb_background_color="#1AFFFFFF"
-        app:mpb_fill_color="#FF1CECBE"
-        app:mpb_flat="true" />
+<!--    <com.liulishuo.magicprogresswidget.MagicProgressBar-->
+<!--        android:id="@+id/demo_1_mpb"-->
+<!--        style="@style/demo_progress_bar"-->
+<!--        android:layout_height="32dp"-->
+<!--        android:layout_marginTop="30dp"-->
+<!--        app:mpb_background_color="#1AFFFFFF"-->
+<!--        app:mpb_fill_color="#FF1CECBE"-->
+<!--        app:mpb_flat="true" />-->
 
-    <com.liulishuo.magicprogresswidget.MagicProgressBar
-        android:id="@+id/demo_2_mpb"
-        style="@style/demo_progress_bar"
-        android:layout_height="32dp"
-        app:mpb_background_color="#1AFFFFFF"
-        app:mpb_fill_color="#FFFF493D" />
+<!--    <com.liulishuo.magicprogresswidget.MagicProgressBar-->
+<!--        android:id="@+id/demo_2_mpb"-->
+<!--        style="@style/demo_progress_bar"-->
+<!--        android:layout_height="32dp"-->
+<!--        app:mpb_background_color="#1AFFFFFF"-->
+<!--        app:mpb_fill_color="#FFFF493D" />-->
 
-    <com.liulishuo.magicprogresswidget.MagicProgressBar
-        android:id="@+id/demo_3_mpb"
-        style="@style/demo_progress_bar"
-        app:mpb_background_color="#1AFFFFFF"
-        app:mpb_fill_color="#FFF141B4" />
+<!--    <com.liulishuo.magicprogresswidget.MagicProgressBar-->
+<!--        android:id="@+id/demo_3_mpb"-->
+<!--        style="@style/demo_progress_bar"-->
+<!--        app:mpb_background_color="#1AFFFFFF"-->
+<!--        app:mpb_fill_color="#FFF141B4" />-->
 
     <com.liulishuo.magicprogresswidget.MagicProgressBar
         android:id="@+id/demo_4_mpb"
@@ -57,7 +57,7 @@
         app:mpb_background_color="#1AFFFFFF"
         app:mpb_show_text="true"
         app:mpb_text_color="@color/white"
-        app:mpb_bar_width="20dp"
+        app:mpb_bar_width="70dp"
         app:mpb_flat="true"
         app:mpb_fill_color="#FF86E50E" />
 
